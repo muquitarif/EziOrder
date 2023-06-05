@@ -156,7 +156,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'Order # ${listViewOrdersRecord.orderNum}',
+                                          listViewOrdersRecord.orderNum,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(

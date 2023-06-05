@@ -116,7 +116,6 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                           30.0, 30.0, 30.0, 30.0),
                       child: Container(
                         width: MediaQuery.of(context).size.width * 1.0,
-                        height: 850.0,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20.0),
@@ -129,21 +128,20 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                           children: [
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 8.0),
+                                  0.0, 8.0, 0.0, 25.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      'Order # ${orderDetailsOrdersRecord.orderNum}',
+                                      orderDetailsOrdersRecord.orderNum,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Readex Pro',
                                             fontSize: 20.0,
                                             fontWeight: FontWeight.w500,
-                                            lineHeight: 2.0,
                                           ),
                                     ),
                                   ),
@@ -164,6 +162,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                         .override(
                                           fontFamily: 'Readex Pro',
                                           color: Color(0xFF969696),
+                                          fontSize: 14.0,
                                         ),
                                   ),
                                 ],
@@ -182,6 +181,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                         .override(
                                           fontFamily: 'Readex Pro',
                                           color: Color(0xFF969696),
+                                          fontSize: 18.0,
                                         ),
                                   ),
                                 ),
@@ -200,6 +200,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                         .override(
                                           fontFamily: 'Readex Pro',
                                           color: Color(0xFF969696),
+                                          fontSize: 18.0,
                                           lineHeight: 1.0,
                                         ),
                                   ),
@@ -219,6 +220,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                         .override(
                                           fontFamily: 'Readex Pro',
                                           color: Color(0xFF969696),
+                                          fontSize: 18.0,
                                         ),
                                   ),
                                 ),
@@ -234,6 +236,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                       .override(
                                         fontFamily: 'Readex Pro',
                                         color: Color(0xFF969696),
+                                        fontSize: 18.0,
                                       ),
                                 ),
                               ],
@@ -262,7 +265,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 20.0, 0.0, 25.0),
+                                  0.0, 10.0, 0.0, 25.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -306,68 +309,48 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                   itemBuilder: (context, listViewIndex) {
                                     final listViewItemsRecord =
                                         listViewItemsRecordList[listViewIndex];
-                                    return Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 40.0),
-                                      child: Container(
-                                        width: 300.0,
-                                        height: 100.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              child: Image.network(
-                                                'https://picsum.photos/seed/38/600',
-                                                width: 100.0,
-                                                height: 200.0,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                            Column(
+                                    return Container(
+                                      width: 300.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                        shape: BoxShape.rectangle,
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
-                                                          0.0, 0.0, 0.0, 30.0),
+                                                          0.0, 0.0, 0.0, 10.0),
                                                   child: Text(
-                                                    'Hello World',
+                                                    'Item # ${listViewIndex.toString()}',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily:
                                                               'Readex Pro',
+                                                          color:
+                                                              Color(0xFF969696),
                                                           fontSize: 18.0,
                                                         ),
                                                   ),
-                                                ),
-                                                Text(
-                                                  'Rs. ',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color:
-                                                            Color(0xFF969696),
-                                                      ),
                                                 ),
                                                 Text(
                                                   'Qty: ${listViewItemsRecord.quantity.toString()}',
@@ -379,12 +362,13 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                             'Readex Pro',
                                                         color:
                                                             Color(0xFF969696),
+                                                        fontSize: 18.0,
                                                       ),
                                                 ),
                                               ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     );
                                   },
@@ -393,7 +377,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 20.0, 0.0, 0.0),
+                                  0.0, 30.0, 0.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment:
@@ -405,7 +389,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Readex Pro',
-                                          fontSize: 18.0,
+                                          fontSize: 20.0,
                                         ),
                                   ),
                                   Text(
@@ -413,21 +397,12 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Readex Pro',
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                   ),
                                 ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 10.0, 0.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [],
                               ),
                             ),
                           ],
