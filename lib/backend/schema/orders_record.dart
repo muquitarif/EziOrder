@@ -34,11 +34,6 @@ class OrdersRecord extends FirestoreRecord {
   String get customerAddress => _customerAddress ?? '';
   bool hasCustomerAddress() => _customerAddress != null;
 
-  // "order_num" field.
-  int? _orderNum;
-  int get orderNum => _orderNum ?? 0;
-  bool hasOrderNum() => _orderNum != null;
-
   // "total_price" field.
   int? _totalPrice;
   int get totalPrice => _totalPrice ?? 0;
@@ -59,16 +54,21 @@ class OrdersRecord extends FirestoreRecord {
   int get itemQuantity => _itemQuantity ?? 0;
   bool hasItemQuantity() => _itemQuantity != null;
 
+  // "order_num" field.
+  String? _orderNum;
+  String get orderNum => _orderNum ?? '';
+  bool hasOrderNum() => _orderNum != null;
+
   void _initializeFields() {
     _customerName = snapshotData['customer_name'] as String?;
     _customerPhone = snapshotData['customer_phone'] as String?;
     _customerEmail = snapshotData['customer_email'] as String?;
     _customerAddress = snapshotData['customer_address'] as String?;
-    _orderNum = snapshotData['order_num'] as int?;
     _totalPrice = snapshotData['total_price'] as int?;
     _user = snapshotData['user'] as DocumentReference?;
     _createdAt = snapshotData['created_at'] as DateTime?;
     _itemQuantity = snapshotData['item_quantity'] as int?;
+    _orderNum = snapshotData['order_num'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -101,11 +101,11 @@ Map<String, dynamic> createOrdersRecordData({
   String? customerPhone,
   String? customerEmail,
   String? customerAddress,
-  int? orderNum,
   int? totalPrice,
   DocumentReference? user,
   DateTime? createdAt,
   int? itemQuantity,
+  String? orderNum,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -113,11 +113,11 @@ Map<String, dynamic> createOrdersRecordData({
       'customer_phone': customerPhone,
       'customer_email': customerEmail,
       'customer_address': customerAddress,
-      'order_num': orderNum,
       'total_price': totalPrice,
       'user': user,
       'created_at': createdAt,
       'item_quantity': itemQuantity,
+      'order_num': orderNum,
     }.withoutNulls,
   );
 

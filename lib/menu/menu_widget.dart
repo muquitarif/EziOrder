@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'menu_model.dart';
@@ -303,7 +302,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                                     ),
                                     child: Container(
                                       width: 100.0,
-                                      height: 350.0,
+                                      height: 360.0,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius:
@@ -315,26 +314,32 @@ class _MenuWidgetState extends State<MenuWidget> {
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            ClipRRect(
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(0.0),
-                                                bottomRight:
-                                                    Radius.circular(0.0),
-                                                topLeft: Radius.circular(8.0),
-                                                topRight: Radius.circular(8.0),
-                                              ),
-                                              child: Image.network(
-                                                listViewMenuItemsRecord.image,
-                                                width: 406.0,
-                                                height: 237.0,
-                                                fit: BoxFit.cover,
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 20.0, 0.0, 0.0),
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(0.0),
+                                                  bottomRight:
+                                                      Radius.circular(0.0),
+                                                  topLeft: Radius.circular(8.0),
+                                                  topRight:
+                                                      Radius.circular(8.0),
+                                                ),
+                                                child: Image.network(
+                                                  listViewMenuItemsRecord.image,
+                                                  width: 400.0,
+                                                  height: 230.0,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
-                                                      10.0, 0.0, 10.0, 0.0),
+                                                      10.0, 10.0, 10.0, 0.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -360,7 +365,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                                                                 'Readex Pro',
                                                             fontSize: 20.0,
                                                             fontWeight:
-                                                                FontWeight.bold,
+                                                                FontWeight.w500,
                                                           ),
                                                     ),
                                                   ),
@@ -381,6 +386,8 @@ class _MenuWidgetState extends State<MenuWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Readex Pro',
+                                                                color: Color(
+                                                                    0xFF6D6D6D),
                                                                 fontSize: 20.0,
                                                               ),
                                                     ),
@@ -391,12 +398,11 @@ class _MenuWidgetState extends State<MenuWidget> {
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
-                                                      20.0, 10.0, 20.0, 10.0),
+                                                      20.0, 10.0, 20.0, 0.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                    MainAxisAlignment.end,
                                                 children: [
                                                   InkWell(
                                                     splashColor:
@@ -446,24 +452,13 @@ class _MenuWidgetState extends State<MenuWidget> {
                                                                       0.0,
                                                                       5.0,
                                                                       0.0),
-                                                          child: FaIcon(
-                                                            FontAwesomeIcons
-                                                                .edit,
+                                                          child: Icon(
+                                                            Icons.edit_outlined,
                                                             color: FlutterFlowTheme
                                                                     .of(context)
                                                                 .secondaryText,
+                                                            size: 25.0,
                                                           ),
-                                                        ),
-                                                        Text(
-                                                          'Edit',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                fontSize: 17.0,
-                                                              ),
                                                         ),
                                                       ],
                                                     ),
@@ -491,21 +486,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .error,
-                                                          size: 30.0,
-                                                        ),
-                                                        Text(
-                                                          'Delete',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .error,
-                                                                fontSize: 17.0,
-                                                              ),
+                                                          size: 25.0,
                                                         ),
                                                       ],
                                                     ),

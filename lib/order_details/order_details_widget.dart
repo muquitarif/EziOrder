@@ -1,8 +1,8 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,11 +13,9 @@ class OrderDetailsWidget extends StatefulWidget {
   const OrderDetailsWidget({
     Key? key,
     required this.orderId,
-    required this.menuID,
   }) : super(key: key);
 
-  final OrdersRecord? orderId;
-  final MenuItemsRecord? menuID;
+  final DocumentReference? orderId;
 
   @override
   _OrderDetailsWidgetState createState() => _OrderDetailsWidgetState();
@@ -43,12 +41,8 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<UsersRecord>>(
-      stream: queryUsersRecord(
-        queryBuilder: (usersRecord) =>
-            usersRecord.where('uid', isEqualTo: currentUserUid),
-        singleRecord: true,
-      ),
+    return StreamBuilder<OrdersRecord>(
+      stream: OrdersRecord.getDocument(widget.orderId!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -65,10 +59,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
             ),
           );
         }
-        List<UsersRecord> orderDetailsUsersRecordList = snapshot.data!;
-        final orderDetailsUsersRecord = orderDetailsUsersRecordList.isNotEmpty
-            ? orderDetailsUsersRecordList.first
-            : null;
+        final orderDetailsOrdersRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: Colors.white,
@@ -111,251 +102,251 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
             centerTitle: false,
             elevation: 1.0,
           ),
-          body: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 20.0),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 20.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 1.0,
-                      height: 850.0,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.0),
-                        shape: BoxShape.rectangle,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 8.0, 0.0, 8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    'Order # ${widget.orderId!.orderNum.toString()}',
+          body: SafeArea(
+            top: true,
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 20.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          30.0, 30.0, 30.0, 30.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 1.0,
+                        height: 850.0,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20.0),
+                          shape: BoxShape.rectangle,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 8.0, 0.0, 8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      'Order # ${orderDetailsOrdersRecord.orderNum}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.w500,
+                                            lineHeight: 2.0,
+                                          ),
+                                    ),
+                                  ),
+                                  Text(
+                                    '${dateTimeFormat(
+                                      'yMMMd',
+                                      orderDetailsOrdersRecord.createdAt,
+                                      locale: FFLocalizations.of(context)
+                                          .languageCode,
+                                    )}, ${dateTimeFormat(
+                                      'jm',
+                                      orderDetailsOrdersRecord.createdAt,
+                                      locale: FFLocalizations.of(context)
+                                          .languageCode,
+                                    )}',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Readex Pro',
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.w500,
-                                          lineHeight: 2.0,
+                                          color: Color(0xFF969696),
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 5.0),
+                                  child: Text(
+                                    'Customer : ${orderDetailsOrdersRecord.customerName}',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Readex Pro',
+                                          color: Color(0xFF969696),
                                         ),
                                   ),
                                 ),
-                                Text(
-                                  valueOrDefault<String>(
-                                    widget.orderId!.createdAt?.toString(),
-                                    'Date & Time',
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF969696),
-                                      ),
-                                ),
                               ],
                             ),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 5.0),
-                                child: Text(
-                                  'Customer : ${widget.orderId!.customerName}',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF969696),
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 5.0),
-                                child: Text(
-                                  'Phone: ${widget.orderId!.customerPhone}',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF969696),
-                                        lineHeight: 1.0,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 5.0),
-                                child: Text(
-                                  'Address: ${valueOrDefault<String>(
-                                    widget.orderId!.customerAddress,
-                                    'Not Available',
-                                  )}',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF969696),
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'Email: ${valueOrDefault<String>(
-                                  widget.orderId!.customerEmail,
-                                  'Not Available',
-                                )}',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      color: Color(0xFF969696),
-                                    ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 20.0, 0.0, 0.0),
-                            child: Row(
+                            Row(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    SizedBox(
-                                      width: 300.0,
-                                      child: Divider(
-                                        thickness: 1.0,
-                                        color: Color(0xFFDBDBDB),
-                                      ),
-                                    ),
-                                  ],
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 5.0),
+                                  child: Text(
+                                    'Phone: ${orderDetailsOrdersRecord.customerPhone}',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Readex Pro',
+                                          color: Color(0xFF969696),
+                                          lineHeight: 1.0,
+                                        ),
+                                  ),
                                 ),
                               ],
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 20.0, 0.0, 20.0),
-                            child: Row(
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 5.0),
+                                  child: Text(
+                                    'Address: ${orderDetailsOrdersRecord.customerAddress}',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Readex Pro',
+                                          color: Color(0xFF969696),
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  'Order Summary',
+                                  'Email: ${orderDetailsOrdersRecord.customerEmail}',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Readex Pro',
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xFF969696),
                                       ),
                                 ),
                               ],
                             ),
-                          ),
-                          StreamBuilder<List<MenuItemsRecord>>(
-                            stream: queryMenuItemsRecord(),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      color: Color(0xFFEF393C),
-                                    ),
-                                  ),
-                                );
-                              }
-                              List<MenuItemsRecord>
-                                  listViewMenuItemsRecordList = snapshot.data!;
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listViewMenuItemsRecordList.length,
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewMenuItemsRecord =
-                                      listViewMenuItemsRecordList[
-                                          listViewIndex];
-                                  return Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 40.0),
-                                    child: Container(
-                                      width: 300.0,
-                                      height: 100.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 20.0, 0.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      SizedBox(
+                                        width: 300.0,
+                                        child: Divider(
+                                          thickness: 1.0,
+                                          color: Color(0xFFDBDBDB),
+                                        ),
                                       ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            child: Image.network(
-                                              'https://picsum.photos/seed/38/600',
-                                              width: 100.0,
-                                              height: 200.0,
-                                              fit: BoxFit.cover,
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 20.0, 0.0, 25.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    'Order Summary',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Readex Pro',
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            StreamBuilder<List<ItemsRecord>>(
+                              stream: queryItemsRecord(
+                                parent: widget.orderId,
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: CircularProgressIndicator(
+                                        color: Color(0xFFEF393C),
+                                      ),
+                                    ),
+                                  );
+                                }
+                                List<ItemsRecord> listViewItemsRecordList =
+                                    snapshot.data!;
+                                return ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: listViewItemsRecordList.length,
+                                  itemBuilder: (context, listViewIndex) {
+                                    final listViewItemsRecord =
+                                        listViewItemsRecordList[listViewIndex];
+                                    return Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 40.0),
+                                      child: Container(
+                                        width: 300.0,
+                                        height: 100.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.network(
+                                                'https://picsum.photos/seed/38/600',
+                                                width: 100.0,
+                                                height: 200.0,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    30.0, 0.0, 0.0, 0.0),
-                                            child: Column(
+                                            Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.end,
                                               children: [
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 0.0, 30.0),
                                                   child: Text(
-                                                    widget.menuID!.name,
+                                                    'Hello World',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -367,7 +358,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  'Rs. ${widget.menuID!.price.toString()}',
+                                                  'Rs. ',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -379,7 +370,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                       ),
                                                 ),
                                                 Text(
-                                                  'Qty: ${widget.orderId!.itemQuantity.toString()}',
+                                                  'Qty: ${listViewItemsRecord.quantity.toString()}',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -392,71 +383,59 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 20.0, 0.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Total',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 18.0,
-                                      ),
-                                ),
-                                Text(
-                                  widget.orderId!.totalPrice.toString(),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Montserrat',
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ],
+                                    );
+                                  },
+                                );
+                              },
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 10.0, 0.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    SizedBox(
-                                      width: 300.0,
-                                      child: Divider(
-                                        thickness: 1.0,
-                                        color: Color(0xFFDBDBDB),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 20.0, 0.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Total',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Readex Pro',
+                                          fontSize: 18.0,
+                                        ),
+                                  ),
+                                  Text(
+                                    'Rs. ${orderDetailsOrdersRecord.totalPrice.toString()}',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 10.0, 0.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

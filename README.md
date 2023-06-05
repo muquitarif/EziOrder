@@ -1,6 +1,6 @@
 # eziOrder
 
-EziOrder is a mobile application designed to enhance the dining experience for both restaurant owners and customers. The app allows restaurant owners to generate QR codes for their menus, enabling customers to conveniently scan the code and place their orders directly through the app. 
+A new Flutter project.
 
 ## Getting Started
 

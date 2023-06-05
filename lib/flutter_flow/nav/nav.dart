@@ -149,13 +149,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'OrderDetails',
           path: '/orderDetails',
-          asyncParams: {
-            'orderId': getDoc(['orders'], OrdersRecord.fromSnapshot),
-            'menuID': getDoc(['menu-items'], MenuItemsRecord.fromSnapshot),
-          },
           builder: (context, params) => OrderDetailsWidget(
-            orderId: params.getParam('orderId', ParamType.Document),
-            menuID: params.getParam('menuID', ParamType.Document),
+            orderId: params.getParam(
+                'orderId', ParamType.DocumentReference, false, ['orders']),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),

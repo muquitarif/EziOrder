@@ -388,7 +388,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                       _model.apiResultwwt =
                                           await GenerateQRCodeCall.call(
                                         text:
-                                            'https://shahmirfaisal.com/menu/${currentUserUid}',
+                                            'https://eziorder.shahmirfaisal.com/menu/${currentUserUid}',
                                       );
                                       if ((_model.apiResultwwt?.succeeded ??
                                           true)) {
