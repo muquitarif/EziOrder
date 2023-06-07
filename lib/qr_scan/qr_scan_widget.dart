@@ -178,16 +178,7 @@ class _QrScanWidgetState extends State<QrScanWidget> {
                                     ScanMode.QR,
                                   );
 
-                                  context.pushNamed(
-                                    'QrScan',
-                                    extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
-                                        hasTransition: true,
-                                        transitionType: PageTransitionType.fade,
-                                        duration: Duration(milliseconds: 0),
-                                      ),
-                                    },
-                                  );
+                                  await launchURL(_model.qrOutput!);
 
                                   setState(() {});
                                 },
@@ -214,30 +205,6 @@ class _QrScanWidgetState extends State<QrScanWidget> {
                                     width: 1.0,
                                   ),
                                 ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 50.0, 0.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      await launchURL(_model.qrOutput!);
-                                    },
-                                    child: Text(
-                                      _model.qrOutput!,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
-                                    ),
-                                  ),
-                                ],
                               ),
                             ),
                           ],

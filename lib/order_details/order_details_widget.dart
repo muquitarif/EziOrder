@@ -181,7 +181,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                         .override(
                                           fontFamily: 'Readex Pro',
                                           color: Color(0xFF969696),
-                                          fontSize: 18.0,
+                                          fontSize: 12.0,
                                         ),
                                   ),
                                 ),
@@ -200,7 +200,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                         .override(
                                           fontFamily: 'Readex Pro',
                                           color: Color(0xFF969696),
-                                          fontSize: 18.0,
+                                          fontSize: 12.0,
                                           lineHeight: 1.0,
                                         ),
                                   ),
@@ -220,7 +220,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                         .override(
                                           fontFamily: 'Readex Pro',
                                           color: Color(0xFF969696),
-                                          fontSize: 18.0,
+                                          fontSize: 12.0,
                                         ),
                                   ),
                                 ),
@@ -236,7 +236,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                       .override(
                                         fontFamily: 'Readex Pro',
                                         color: Color(0xFF969696),
-                                        fontSize: 18.0,
+                                        fontSize: 12.0,
                                       ),
                                 ),
                               ],
@@ -252,7 +252,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       SizedBox(
-                                        width: 300.0,
+                                        width: 200.0,
                                         child: Divider(
                                           thickness: 1.0,
                                           color: Color(0xFFDBDBDB),
@@ -348,70 +348,85 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                   BorderRadius.circular(20.0),
                                               shape: BoxShape.rectangle,
                                             ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.network(
-                                                        containerMenuItemsRecord
-                                                            .image,
-                                                        width: 289.0,
-                                                        height: 200.0,
-                                                        fit: BoxFit.cover,
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      10.0, 20.0, 10.0, 15.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Expanded(
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                          child: Image.network(
+                                                            containerMenuItemsRecord
+                                                                .image,
+                                                            height: 200.0,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
                                                       ),
+                                                    ],
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                10.0,
+                                                                20.0,
+                                                                10.0,
+                                                                10.0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          containerMenuItemsRecord
+                                                              .name,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Readex Pro',
+                                                                fontSize: 18.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                        ),
+                                                        Text(
+                                                          'Quantity: ${listViewItemsRecord.quantity.toString()}',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Readex Pro',
+                                                                fontSize: 18.0,
+                                                              ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(10.0, 10.0,
-                                                          10.0, 10.0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        containerMenuItemsRecord
-                                                            .name,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium,
-                                                      ),
-                                                    ],
                                                   ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(10.0, 10.0,
-                                                          10.0, 10.0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        'Quantity: ${listViewItemsRecord.quantity.toString()}',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           );
                                         },

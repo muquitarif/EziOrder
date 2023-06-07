@@ -91,40 +91,6 @@ class _MenuWidgetState extends State<MenuWidget> {
               size: 28.0,
             ),
           ),
-          drawer: Drawer(
-            elevation: 16.0,
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      context.pushNamed('Menu');
-                    },
-                    child: ListTile(
-                      title: Text(
-                        'Menu',
-                        style: FlutterFlowTheme.of(context).titleLarge,
-                      ),
-                      trailing: Icon(
-                        Icons.chevron_left,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 30.0,
-                      ),
-                      tileColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                      dense: false,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
           appBar: AppBar(
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
